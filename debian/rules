@@ -15,7 +15,7 @@
 # Override parameters for configure
 #   --with-music necessary ATM to have CYTHON defined even for
 #                just getting a source distribution out
-override_dh_auto_config:
+override_dh_auto_configure:
 	./build.sh
 	NSRC=$$PWD dh_auto_configure -- \
 	--without-iv --with-nrnpython=/usr/bin/python --with-music=/usr
