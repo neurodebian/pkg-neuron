@@ -10,7 +10,8 @@ Homepage: http://www.neuron.yale.edu
 
 Package: neuron
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libneuron0 (= ${binary:Version})
+Suggests: python-neuron
 Description: TODO1
  TODO2
 
@@ -30,9 +31,17 @@ Description: TODO1
  .
  This package provides header files and static library.
 
-Package: neuron-doc
+Package: python-neuron
 Architecture: all
-Description: documentation for NEURON
- TODO2.
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Description: TODO1
+ TODO2
  .
- This package provides documentation files.
+ This package provides Python interface to NEURON.
+
+# Package: neuron-doc
+# Architecture: all
+# Description: documentation for NEURON
+#  TODO2.
+#  .
+#  This package provides documentation files.
