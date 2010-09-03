@@ -1,0 +1,38 @@
+Source: nrn
+Section: science
+Priority: extra
+Maintainer: NeuroDebian Team <team@neuro.debian.net>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libmusic-dev, pvm-dev
+Standards-Version: 3.9.1
+Homepage: http://www.neuron.yale.edu
+#Vcs-Git: git://git.debian.org/collab-maint/nrn.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/nrn.git;a=summary
+
+Package: neuron
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: TODO1
+ TODO2
+
+Package: libneuron0
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: TODO1
+ TODO2
+ .
+ This package provides dynamic libraries of NEURON.
+
+Package: libneuron-dev
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: TODO1
+ TODO2
+ .
+ This package provides header files and static library.
+
+Package: neuron-doc
+Architecture: all
+Description: documentation for NEURON
+ TODO2.
+ .
+ This package provides documentation files.

@@ -1,0 +1,2 @@
+?package(nrn):needs="X11|text|vc|wm" section="Applications/see-menu-manual"\
+  title="nrn" command="/usr/bin/nrn"
