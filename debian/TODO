@@ -1,0 +1,7 @@
+* InterViews -- clarify situation and possible extension of ivtools
+  with missing pieces
+
+* .sh scripts shipped under usr/bin/
+
+* Python module -- build for all supported versions and and ship in
+  appropriate location
