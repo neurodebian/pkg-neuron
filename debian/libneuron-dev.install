@@ -1,0 +1,2 @@
+usr/include/nrn
+debian/tmp/usr/*/lib/*.{so,la} usr/lib/
