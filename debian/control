@@ -26,14 +26,16 @@ Description: TODO1
  This package provides dynamic libraries of NEURON.
 
 Package: libneuron-dev
-Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, (= ${binary:Version})
 Description: TODO1
  TODO2
  .
  This package provides header files and static library.
 
 Package: python-neuron
+Section: python
 Architecture: all
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
 Description: TODO1
