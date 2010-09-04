@@ -2,7 +2,9 @@ Source: nrn
 Section: science
 Priority: extra
 Maintainer: NeuroDebian Team <team@neuro.debian.net>
-Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libmusic-dev, pvm-dev
+Build-Depends: debhelper (>= 7.0.50~),
+			   autotools-dev, autoconf, automake,
+ 			   libmusic-dev, pvm-dev
 Standards-Version: 3.9.1
 Homepage: http://www.neuron.yale.edu
 #Vcs-Git: git://git.debian.org/collab-maint/nrn.git
