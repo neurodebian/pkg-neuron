@@ -1,0 +1,14 @@
+Neuron TODO for Debian packaging
+
+* Verify/collect legal terms
+
+* Decide where to ship whatever is provided in share/{examples,demo}
+
+Upstream:
+
+* Remove executable flags from files (commit in hg), or ...
+
+* Why not add a '#!/usr/bin/env neuron' shebang for .ses/.hoc files (which
+  are made executable now for no reason) -- check which ones ;)
+
+

@@ -14,38 +14,63 @@ Package: neuron
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libneuron0 (= ${binary:Version})
 Suggests: python-neuron
-Description: TODO1
+Description: powerful simulator of neurons and networks
  TODO2
 
 Package: libneuron0
+Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: TODO1
+Description: NEURON simulator - dynamic libraries
  TODO2
  .
  This package provides dynamic libraries of NEURON.
 
+# Might need to become more generic neuron-dbg?
+Package: libneuron0-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libneuron0 (= ${binary:Version})
+Description: NEURON simulator - debugging symbols
+ TODO2
+ .
+ This package provides debugging symbols for dynamic libraries and
+ executables of NEURON simulator.
+
 Package: libneuron-dev
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, (= ${binary:Version})
-Description: TODO1
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libneuron0 (= ${binary:Version})
+Description: NEURON simulator - development files
  TODO2
  .
  This package provides header files and static library.
 
 Package: python-neuron
 Section: python
-Architecture: all
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
-Description: TODO1
+Architecture: any
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends},
+         libneuron0 (= ${binary:Version})
+Description: NEURON simulator - Python bindings
+ TODO2
+ .
+ This package provides Python interface to NEURON.
+
+Package: python-neuron-dbg
+Section: debug
+Architecture: any
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends},
+         python-neuron (= ${binary:Version})
+Description: NEURON simulator - Python bindings
  TODO2
  .
  This package provides Python interface to NEURON.
 
 # Package: neuron-doc
 # Architecture: all
-# Description: documentation for NEURON
+# Description: documentation for NEURON simulator
 #  TODO2.
 #  .
 #  This package provides documentation files.
