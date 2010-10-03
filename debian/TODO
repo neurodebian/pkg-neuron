@@ -1,7 +1,21 @@
+Neuron TODO for Debian packaging
+
+* Verify/collect legal terms
+
+* Decide where to ship whatever is provided in share/{examples,demo}
+
 * InterViews -- clarify situation and possible extension of ivtools
   with missing pieces
 
-* .sh scripts shipped under usr/bin/
-
 * Python module -- build for all supported versions and and ship in
   appropriate location
+
+
+Upstream:
+
+* Remove executable flags from files (commit in hg), or ...
+
+* Consult upstream about .sh scripts shipped under usr/bin/
+
+* Why not add a '#!/usr/bin/env neuron' shebang for .ses/.hoc files (which
+  are made executable now for no reason) -- check which ones ;)
