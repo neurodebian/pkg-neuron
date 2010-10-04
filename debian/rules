@@ -11,8 +11,6 @@
 
 %:
 	dh $@
-	# dh $@ -Dsrc/nrnpython --buildsystem=python_distutils
-
 
 # Override parameters for configure
 #   --with-music necessary ATM to have CYTHON defined even for
@@ -24,6 +22,16 @@ override_dh_auto_configure:
 	 --without-iv --with-nrnpython=/usr/bin/python --with-music=/usr \
 	 --exec_prefix=/usr	--without-mpi
 
+override_dh_auto_build:
+	dh_auto_build
+	dh_auto_build -Dsrc/neuronmusic --buildsystem=python_distutils
+	dh_auto_build -Dsrc/nrnpython --buildsystem=python_distutils
+
+override_dh_auto_install:
+	dh_auto_install
+	dh_auto_install --destdir=debian/python-neuron -Dsrc/neuronmusic --buildsystem=python_distutils
+	dh_auto_install --destdir=debian/python-neuron -Dsrc/nrnpython --buildsystem=python_distutils
+
 #override_dh_auto_install:
 #	dh_auto_install
 
@@ -34,6 +42,7 @@ override_dh_auto_configure:
 # TODO: more
 override_dh_auto_clean:
 	dh_auto_clean
+	-make clean
 	-make maintainer-clean		# since we are autogening everything
 	-find -iname Makefile.in -delete # and those too
 	-rm -r `arch`				# TODO per-arch
