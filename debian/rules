@@ -11,6 +11,8 @@
 
 %:
 	dh $@
+	# dh $@ -Dsrc/nrnpython --buildsystem=python_distutils
+
 
 # Override parameters for configure
 #   --with-music necessary ATM to have CYTHON defined even for
@@ -22,8 +24,17 @@ override_dh_auto_configure:
 	 --without-iv --with-nrnpython=/usr/bin/python --with-music=/usr \
 	 --exec_prefix=/usr	--without-mpi
 
+#override_dh_auto_install:
+#	dh_auto_install
+
+# This compares against original source tree, not debian/tmp
+#override_dh_install:
+#	dh_install --list-missing
+
 # TODO: more
 override_dh_auto_clean:
 	dh_auto_clean
-	rm -rf x86_64 # TODO per-arch
+	make maintainer-clean		# since we are autogening everything
+	find -iname Makefile.in -delete # and those too
+	-rm -r `arch`				# TODO per-arch
 	rm -f ylwrap
