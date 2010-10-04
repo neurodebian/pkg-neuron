@@ -58,8 +58,8 @@ override_dh_strip:
 	dh_strip -k
 
 	mv debian/neuron/usr/lib/debug debian/neuron-dbg/usr/lib/
-	mv debian/libneuron*/usr/lib/debug/* debian/neuron-dbg/usr/lib/debug
-	-rmdir debian/libneuron*/usr/lib/debug
+	mv debian/libneuron*/usr/lib/debug/usr/* debian/neuron-dbg/usr/lib/debug/usr/
+	rm -rf debian/libneuron*/usr/lib/debug
 
 	mv debian/python-neuron/usr/lib/debug debian/python-neuron-dbg/usr/lib
 	cd debian/python-neuron-dbg/usr/lib/debug/usr/lib && mv pyshared pymodules
