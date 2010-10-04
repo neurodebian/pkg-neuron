@@ -8,7 +8,52 @@ Neuron TODO for Debian packaging
   with missing pieces
 
 * Python module -- build for all supported versions and and ship in
-  appropriate location
+  appropriate 
+
+* nrnmech_makefile  is not place in /usr/bin -- share/nrn
+   referrs also to 
+ 
+* should demo get a separate package?
+
+* memacs?  ng seems to be similar... but not the same
+  --without-memacs   ?
+
+*  /usr/bin/modlunit  relies on ./share/lib/nrnunits.lib
+
+* MPI builds
+
+$> /usr/bin/nrngui
+NEURON -- VERSION 7.2 debian (474:e77692c8106c) 2010-09-03
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+See http://www.neuron.yale.edu/credits.html
+
+/usr/bin/nrniv: can't open /usr/share/nrn/lib/hoc/nrngui.hoc
+
+$> /usr/bin/neurondemo
+/usr/bin/neurondemo: line 18: cd: /usr/share/nrn/demo/release: No such file or directory
+/home/yoh/deb/perspect/neuron/nrn-hg/src/memacs
+*.mod
+*.mod
+make: *** No rule to make target `mod_func.c.lo', needed by `libnrnmech.la'.  Stop.
+/usr/bin/neurondemo: line 21: /usr/share/nrn/demo/neuron: No such file or directory
+$> /usr/bin/ivoc
+OC INTERPRETER   $Revision: 3 $   $Date: 2003-02-11 19:36:05 +0100 (Tue, 11 Feb 2003) $
+Copyright 1992 -  Michael Hines, Neurobiology Dept., DUMC, Durham, NC.  27710
+oc>sh: /usr/share/nrn/lib/cleanup: No such file or directory
+
+
+$> /usr/bin/nrnocmodl
+mpicc -DHAVE_CONFIG_H -I. -I/usr/include/nrn -I/usr/lib    -g -O2 -c mod_func.c
+mod_func.c:3: warning: return type defaults to ‘int’
+mod_func.c: In function ‘modl_reg’:
+mod_func.c:7: warning: control reaches end of non-void function
+/usr/share/nrn/libtool --mode=link mpicc  -g -O2  -o special /usr/lib/ocmain.o /usr/lib/nrnnoiv.o /usr/lib/ocnoiv.o  mod_func.o -L/usr/lib /usr/lib/libnrnoc.la -loc -lmemacs -lscopmath -lsparse13 -lreadline -lncurses -lSM -lICE -lX11  -lm -ldl
+make: /usr/share/nrn/libtool: Command not found
+make: *** [special] Error 127
+
+$> /usr/bin/hel2mos1.sh
+||
+/usr/bin/hel2mos1.sh: line 26: -remote: command not found
 
 
 Upstream:
