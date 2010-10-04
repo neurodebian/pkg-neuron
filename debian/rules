@@ -15,6 +15,8 @@ else
 endif
 export CFLAGS
 
+# Default Python version which is supported
+PYVER=$(shell pyversions --default)
 
 %:
 	dh $@
@@ -38,11 +40,11 @@ override_dh_auto_install:
 	dh_auto_install
 	dh_auto_install --destdir=debian/python-neuron -Dsrc/neuronmusic --buildsystem=python_distutils
 	dh_auto_install --destdir=debian/python-neuron -Dsrc/nrnpython --buildsystem=python_distutils
+	install --mode=644 share/lib/python/rdxml.py debian/python-neuron/usr/lib/$(PYVER)/dist-packages
 
-
-override_dh_auto_install:
-	dh_auto_install
-	rm -rf debian/neuron-common/usr/share/nrn/lib/python/*
+override_dh_install:
+	dh_install
+	rm -rf debian/neuron-common/usr/share/nrn/lib/python
 	# Figure out if necessary at all
 	# ln -sf /usr/share/pyshared/neuron debian/neuron-common/usr/share/nrn/lib/python/
 	# ln -sf /usr/share/pyshared/rdxml.py debian/neuron-common/usr/share/nrn/lib/python/rdxml.py
@@ -54,12 +56,14 @@ override_dh_auto_install:
 override_dh_strip:
 	# Can't use --dbg-package because we have multiple debug packages
 	dh_strip -k
+
 	mv debian/neuron/usr/lib/debug debian/neuron-dbg/usr/lib/
-	mv debian/libneuron*/usr/lib/debug/* debian/neuron-dbg/usr/lib/
-	rmdir debian/libneuron*/usr/lib/debug
+	mv debian/libneuron*/usr/lib/debug/* debian/neuron-dbg/usr/lib/debug
+	-rmdir debian/libneuron*/usr/lib/debug
 
 	mv debian/python-neuron/usr/lib/debug debian/python-neuron-dbg/usr/lib
 	cd debian/python-neuron-dbg/usr/lib/debug/usr/lib && mv pyshared pymodules
+
 
 
 # TODO: more
