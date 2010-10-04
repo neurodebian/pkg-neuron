@@ -1,4 +1,7 @@
-Neuron TODO for Debian packaging
+Neuron Packaging TODO
+
+Debian
+======
 
 * Verify/collect legal terms
 
@@ -10,10 +13,10 @@ Neuron TODO for Debian packaging
 * Python module -- build for all supported versions and and ship in
   appropriate 
 
-* nrnmech_makefile  is not place in /usr/bin -- share/nrn
-   referrs also to 
- 
+* nrnmech_makefile  is not place in /usr/bin -- share/nrn ??
+
 * should demo get a separate package?
+  for now in neuron-common
 
 * memacs?  ng seems to be similar... but not the same
   --without-memacs   ?
@@ -35,8 +38,12 @@ $> /usr/bin/hel2mos1.sh
 ||
 /usr/bin/hel2mos1.sh: line 26: -remote: command not found
 
+* share/lib/python/rdxml.py
+  from neuroml -- might want separate packaging
 
-Upstream:
+
+Upstream
+========
 
 * Remove executable flags from files -- commit in hg
 
