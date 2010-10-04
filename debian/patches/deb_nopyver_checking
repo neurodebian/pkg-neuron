@@ -1,0 +1,11 @@
+--- a/src/nrnpython/setup.py.in
++++ b/src/nrnpython/setup.py.in
+@@ -17,7 +17,7 @@ instdir = "@prefix@"
+ if nrn_srcdir[0] != '/' :
+     nrn_srcdir = '../../' + nrn_srcdir
+ 
+-if nrnpython_pyver!=get_python_version():
++if False:#nrnpython_pyver!=get_python_version():
+     print "Error:"
+     print "NEURON configure time python: "+nrnpython_exec+"  "+ nrnpython_pyver
+     print "Python presently executing setup.py: "+sys.executable+"   "+ get_python_version()
