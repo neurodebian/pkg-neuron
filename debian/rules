@@ -7,6 +7,13 @@
 # This has to be exported to make some magic below work.
 # export DH_OPTIONS
 
+CFLAGS = -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+export CFLAGS
 
 
 %:
@@ -38,6 +45,14 @@ override_dh_auto_install:
 # This compares against original source tree, not debian/tmp
 #override_dh_install:
 #	dh_install --list-missing
+
+override_dh_strip:
+	# Can't use --dbg-package because we have multiple debug packages
+	dh_strip -k
+	mv debian/libneuron*/usr/lib/debug debian/libneuron-dbg/usr/lib
+	mv debian/python-neuron/usr/lib/debug debian/python-neuron-dbg/usr/lib
+	cd debian/python-neuron-dbg/usr/lib/debug/usr/lib && mv pyshared pymodules
+
 
 # TODO: more
 override_dh_auto_clean:

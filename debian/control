@@ -28,7 +28,7 @@ Description: NEURON simulator - dynamic libraries
  This package provides dynamic libraries of NEURON.
 
 # Might need to become more generic neuron-dbg?
-Package: libneuron0-dbg
+Package: libneuron-dbg
 Section: debug
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
