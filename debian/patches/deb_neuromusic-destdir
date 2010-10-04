@@ -1,0 +1,11 @@
+--- a/src/neuronmusic/Makefile.am
++++ b/src/neuronmusic/Makefile.am
+@@ -15,7 +15,7 @@ install-exec-am: neuronmusic.cpp
+ 	if test ! -f neuronmusic.cpp ; then \
+ 		cp $(nmsrc)/neuronmusic.cpp  . ; \
+ 	fi
+-	$(PYTHON) setup.py install --install-lib=@prefix@/share/nrn/lib/python
++	$(PYTHON) setup.py install --install-lib=$$DESTDIR/@prefix@/share/nrn/lib/python
+ 
+ clean-generic:
+ 	rm -r -f build
