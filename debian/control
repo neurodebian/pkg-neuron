@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 7.0.50~),
  			   libmusic-dev, pvm-dev
 Standards-Version: 3.9.1
 Homepage: http://www.neuron.yale.edu
+XS-Python-Version: current, >= 2.5
 #Vcs-Git: git://git.debian.org/collab-maint/nrn.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/nrn.git;a=summary
 
