@@ -1,1 +1,1 @@
-usr/share/nrn/lib/python/neuron usr/share/pyshared/
+usr/share/nrn/lib/python/* usr/share/pyshared/
