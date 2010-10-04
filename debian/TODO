@@ -38,11 +38,23 @@ $> /usr/bin/hel2mos1.sh
 
 Upstream:
 
-* Remove executable flags from files (commit in hg), or ...
+* Remove executable flags from files -- commit in hg
 
-* Consult upstream about .sh scripts shipped under usr/bin/
+  http://bitbucket.org/yarikoptic/nrn/changeset/c8ef3b231822
+
+  might need to be refined since does for .sh.in as well
+
+* Scripts shipped under usr/bin/ should not have extensions (e.g. .sh)
+  since implementation language does not matter and accounted for
+  with proper shebangs in teh files
+
+* *_makefile should not be shipped under */bin/ since they are not
+  executable.  Could they be shipped under */share/neuron/ and used
+  from there ?
 
 * Why not add a '#!/usr/bin/env neuron' shebang for .ses/.hoc files (which
   are made executable now for no reason) -- check which ones ;)
 
-* --without-mpi has no effect
+* --without-mpi in configure has no effect -- so everything builds
+   using mpicc for no good reason
+

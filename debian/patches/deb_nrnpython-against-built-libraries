@@ -1,0 +1,21 @@
+--- a/src/nrnpython/setup.py.in
++++ b/src/nrnpython/setup.py.in
+@@ -59,7 +59,8 @@ include_dirs = [nrn_srcdir+'/src/oc', '.
+ defines = []
+ 
+ libdirs = ["@NRN_LIBDIR@",
+-  ivlibdir
++  ivlibdir,
++  nrn_srcdir + '/debian/tmp/usr/lib'
+ ]
+ epre='-Wl,-R'
+ 
+@@ -85,7 +86,7 @@ hoc_module = Extension(
+ 
+ setup(name="NEURON", version="@PACKAGE_VERSION@",
+       description = "NEURON bindings for python",
+-      package_dir = {'':instdir+'/share/nrn/lib/python'},
++      package_dir = {'':nrn_srcdir+'/share/lib/python'},
+       packages=['neuron','neuron.tests'],
+       ext_modules=[hoc_module]
+ )

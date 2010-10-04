@@ -13,10 +13,35 @@ XS-Python-Version: current, >= 2.5
 
 Package: neuron
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libneuron0 (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends},
+		 libneuron0 (= ${binary:Version}),
+		 neuron-common (= ${binary:Version})
 Suggests: python-neuron
-Description: powerful simulator of neurons and networks
+Description: NEURON simulator of neurons and networks
  TODO2
+
+Package: neuron-common
+Section: libs
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: NEURON simulator - common architecture independent files
+ TODO2
+ .
+ This package provides architecture independent files used by NEURON.
+
+
+Package: neuron-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libneuron0 (= ${binary:Version}),
+         neuron (= ${binary:Version}),
+Description: NEURON simulator - debugging symbols
+ TODO2
+ .
+ This package provides debugging symbols for dynamic libraries and
+ binaries of NEURON simulator.
+
 
 Package: libneuron0
 Section: libs
@@ -27,17 +52,6 @@ Description: NEURON simulator - dynamic libraries
  .
  This package provides dynamic libraries of NEURON.
 
-# Might need to become more generic neuron-dbg?
-Package: libneuron-dbg
-Section: debug
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},
-         libneuron0 (= ${binary:Version})
-Description: NEURON simulator - debugging symbols
- TODO2
- .
- This package provides debugging symbols for dynamic libraries and
- executables of NEURON simulator.
 
 Package: libneuron-dev
 Section: libdevel

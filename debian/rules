@@ -39,6 +39,7 @@ override_dh_auto_install:
 	dh_auto_install --destdir=debian/python-neuron -Dsrc/neuronmusic --buildsystem=python_distutils
 	dh_auto_install --destdir=debian/python-neuron -Dsrc/nrnpython --buildsystem=python_distutils
 
+
 #override_dh_auto_install:
 #	dh_auto_install
 
@@ -49,7 +50,7 @@ override_dh_auto_install:
 override_dh_strip:
 	# Can't use --dbg-package because we have multiple debug packages
 	dh_strip -k
-	mv debian/libneuron*/usr/lib/debug debian/libneuron-dbg/usr/lib
+	mv debian/libneuron*/usr/lib/debug debian/neuron-dbg/usr/lib/
 	mv debian/python-neuron/usr/lib/debug debian/python-neuron-dbg/usr/lib
 	cd debian/python-neuron-dbg/usr/lib/debug/usr/lib && mv pyshared pymodules
 
