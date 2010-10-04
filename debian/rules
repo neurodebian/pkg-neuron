@@ -34,7 +34,9 @@ override_dh_auto_configure:
 # TODO: more
 override_dh_auto_clean:
 	dh_auto_clean
-	make maintainer-clean		# since we are autogening everything
-	find -iname Makefile.in -delete # and those too
+	-make maintainer-clean		# since we are autogening everything
+	-find -iname Makefile.in -delete # and those too
 	-rm -r `arch`				# TODO per-arch
-	rm -f ylwrap
+	-rm ylwrap aclocal.m4 depcomp missing install-sh ltmain.sh src/nrnoc/hocusr.h
+	-rm configure config.* *.h.in
+	-rm m4/ltsugar.m4 m4/ltversion.m4 m4/lt~obsolete.m4 m4/ltoptions.m4 m4/libtool.m4
