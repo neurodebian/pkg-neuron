@@ -3,8 +3,11 @@ Section: science
 Priority: extra
 Maintainer: NeuroDebian Team <team@neuro.debian.net>
 Build-Depends: debhelper (>= 7.0.50~),
-			   autotools-dev, autoconf, automake,
- 			   libmusic-dev, pvm-dev
+			   autotools-dev, autoconf, automake, libtool,
+ 			   libmusic-dev, music-bin,
+			   pvm-dev,
+			   python-dev, cython,
+			   bison, flex
 Standards-Version: 3.9.1
 Homepage: http://www.neuron.yale.edu
 XS-Python-Version: current, >= 2.5
