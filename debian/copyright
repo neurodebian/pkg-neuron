@@ -27,6 +27,82 @@ X-Origin: http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2nrn/
 Copyright: TODO
 License: TODO
 
+Files: src/gnu
+X-Origin: GNU C++ Library
+Copyright: 1988-1990, Free Software Foundation
+License: LGPL-2+
+ This library is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Library General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.  This library is
+ distributed in the hope that it will be useful, but WITHOUT ANY
+ WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in "/usr/share/common-licenses/LGPL-2".
+
+Files: src/ivo{s,c/{htlist.*,symchoos.*,{scene,field}.cpp}}
+Copyright: 1987-1991, Stanford University
+ 		   1991 Silicon Graphics, Inc.
+License: MIT
+  Permission to use, copy, modify, distribute, and sell this software and
+  its documentation for any purpose is hereby granted without fee, provided
+  that (i) the above copyright notices and this permission notice appear in
+  all copies of the software and related documentation, and (ii) the names of
+  Stanford and Silicon Graphics may not be used in any advertising or
+  publicity relating to the software without the specific, prior written
+  permission of Stanford and Silicon Graphics.
+  .
+  THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+  WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+  .
+  IN NO EVENT SHALL STANFORD OR SILICON GRAPHICS BE LIABLE FOR
+  ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+  OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+  WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
+  LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+  OF THIS SOFTWARE.
+
+Files: src/memacs/*
+Copyright: TODO
+License: TODO
+
+Files: src/modlunit/parse1.*
+Copyright: 1984-2006, Free Software Foundation, Inc.
+License: GPL3+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  .
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  .
+  On Debian systems, the complete text of the GNU General Public
+  License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+Files: src/ni_pci_6229/nrnni.cpp
+Copyright: TODO
+License: TODO
+
+TODO
+
+Files: src/sparse13
+Copyright: 1985-1988 Kenneth S. Kundert and the University of California
+License: MIT
+  Permission to use, copy, modify, and distribute this software and
+  its documentation for any purpose and without fee is hereby granted,
+  provided that the copyright notices appear in all copies and
+  supporting documentation and that the authors and the University of
+  California are properly credited.  The authors and the University of
+  California make no representations as to the suitability of this
+  software for any purpose.  It is provided `as is', without express
+  or implied warranty.
+
 
 Files: debian/*
 Copyright: 2010, NeuroDebian Team <team@neuro.debian.net>

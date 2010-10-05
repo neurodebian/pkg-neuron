@@ -41,6 +41,18 @@ $> /usr/bin/hel2mos1.sh
 * share/lib/python/rdxml.py
   from neuroml -- might want separate packaging
 
+* Unknown origin/copyright/license holders:
+
+  src/e_editor -- "Modified by Dennis Rockwell and David Leonard for phs"
+
+* Inspect viability to rely on existing in Debian?
+
+  src/gnu
+  src/memacs
+
+  src/mac   -- strip non-free (see below) -- mac-specific
+  src/mesch -- libmeschach1.2, libmeschach-dev
+  src/mswin -- strip non-free -- windowss-pecific
 
 Upstream
 ========
@@ -65,3 +77,21 @@ Upstream
 * --without-mpi in configure has no effect -- so everything builds
    using mpicc for no good reason
 
+
+* Warn about another non-distributable piece (and remove in my own copy?)
+
+Files: src/mac/sioux.c
+Copyright: 1995-2001 Metrowerks Corporation
+License: SHOWSTOPPER
+  http://www.qnx.com/legal/licensing/dev_license/eula/mtwks1_00.html
+  Note: Licensees may not distribute the source code of the Metrowerks
+  Standard Library, any derivative thereof, or sample code thereto,
+  without express written permission from an authorized officer of
+  Metrowerks Corp.
+
+* Some code is under GPL-3+, which automagically boosts your license
+  for the complete product to version 3
+
+* Some code (e.g. winio/winio.h) under src/mswin specifies copyright
+  but lacks any license. thus making it an unusable/undistributable
+  beastie
