@@ -1,0 +1,32 @@
+--- a/bin/nrnocmodl.in
++++ b/bin/nrnocmodl.in
+@@ -4,7 +4,7 @@ exec_prefix=@exec_prefix@
+ bindir=@bindir@
+ libdir=@libdir@
+ LIBOBJDIR=${libdir}
+-MAKEFILEDIR=${bindir}
++MAKEFILEDIR=${prefix}/share/nrn
+ ARCH=@host_cpu@
+ 
+ if [ ! -d $ARCH ]
+--- a/bin/Makefile.am
++++ b/bin/Makefile.am
+@@ -1,7 +1,6 @@
+ ## This directory contains several files that need to be installed in the
+ ## neuron binary directory.
+ bin_SCRIPTS = nrnivmodl nrnocmodl neurondemo mkthreadsafe \
+-	nrnoc_makefile nrniv_makefile nrnmech_makefile \
+ 	mos2nrn2.sh hel2mos1.sh bbswork.sh nrngui
+ 
+ EXTRA_DIST = bbswork.sh mkthreadsafe
+--- a/bin/nrnivmodl.in
++++ b/bin/nrnivmodl.in
+@@ -19,7 +19,7 @@ export bindir
+ export libdir
+ 
+ LIBOBJDIR="${libdir}"
+-MAKEFILEDIR="${bindir}"
++MAKEFILEDIR=${prefix}/share/nrn
+ 
+ 
+ PURIFY="USEPURIFY=no"

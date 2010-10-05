@@ -1,1 +1,2 @@
 usr/share
+bin/*_makefile usr/share/nrn/
