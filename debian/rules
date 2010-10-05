@@ -69,8 +69,8 @@ override_dh_strip:
 # TODO: more
 override_dh_auto_clean:
 	dh_auto_clean
-	[ -f Makefile ] && $(MAKE) clean
-	[ -f Makefile ] && $(MAKE) maintainer-clean	# since we are autogening everything
+	[ ! -f Makefile ] || $(MAKE) clean
+	[ ! -f Makefile ] || $(MAKE) maintainer-clean	# since we are autogening everything
 	-find -iname Makefile.in -delete # and those too
 	-rm -r `arch`				# TODO per-arch
 	-rm ylwrap aclocal.m4 depcomp missing install-sh ltmain.sh src/nrnoc/hocusr.h
