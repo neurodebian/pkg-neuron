@@ -1,6 +1,7 @@
 nrn for Debian
 --------------
 
-<possible notes regarding this package - if none, delete this file>
+At the moment NEURON package is built without GUI which requires a
+patched version of InterViewes.
 
- -- NeuroDebian Team <team@neuro.debian.net>  Fri, 03 Sep 2010 00:01:13 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>, Mon,  4 Oct 2010 21:20:18 -0400
