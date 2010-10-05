@@ -1,0 +1,6 @@
+?package(nrn): \
+    needs="X11" \
+    section="Applications/Science/Medicine" \
+    title="NEURON" \
+    longtitle="NEURON simulation environment" \
+	command="/usr/bin/nrn"

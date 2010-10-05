@@ -15,9 +15,9 @@ Package: neuron
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
 		 libneuron0 (= ${binary:Version}),
-		 neuron-common (= ${binary:Version})
+		 neuron-common (= ${source:Version})
 Suggests: python-neuron
-Description: NEURON simulator of neurons and networks
+Description: efficient simulator of neurons and networks
  TODO2
 
 Package: neuron-common
