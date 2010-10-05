@@ -1,0 +1,38 @@
+--- a/share/lib/auditscripts/gettarname
++++ b/share/lib/auditscripts/gettarname
+@@ -1,3 +1,5 @@
++#!/bin/sh
++
+ # look in tardir and print the next available id number as a name
+ tardir=$1
+ if [ ! -d $tardir ] ; then
+--- a/share/lib/auditscripts/hocaudit.sh
++++ b/share/lib/auditscripts/hocaudit.sh
+@@ -1,3 +1,5 @@
++#!/bin/sh
++
+ auditprogpath=`dirname $0`
+ pid=$1
+ auditdir=$2
+--- a/share/lib/auditscripts/retrieve.sh
++++ b/share/lib/auditscripts/retrieve.sh
+@@ -1,3 +1,5 @@
++#!/bin/sh
++
+ # to be executed by retrieve_audit
+ auditprogpath=`dirname $0`
+ pid=ret
+--- a/share/lib/auditscripts/saveaudit
++++ b/share/lib/auditscripts/saveaudit
+@@ -1 +1,3 @@
++#!/bin/sh
++
+ echo "inside $0"
+--- a/share/lib/cleanup
++++ b/share/lib/cleanup
+@@ -1,3 +1,5 @@
++#!/bin/sh
++
+ if [ $TEMP ] ; then
+ 	tmpdir=$TEMP
+ else
