@@ -95,3 +95,8 @@ License: SHOWSTOPPER
 * Some code (e.g. winio/winio.h) under src/mswin specifies copyright
   but lacks any license. thus making it an unusable/undistributable
   beastie
+
+* src/ni_pci_6229/nrnni.cpp:// copied from niddk/100a2/examples/main.cpp
+  COPYRIGHT? License?
+
+  
