@@ -1,0 +1,19 @@
+--- a/src/ivoc/apwindow.cpp
++++ b/src/ivoc/apwindow.cpp
+@@ -441,7 +441,7 @@ boolean PrintableWindow::receive(const E
+ 	return(false);
+ }
+ #else
+-boolean PrintableWindow::receive(const Event& e) {
++void PrintableWindow::receive(const Event& e) {
+ 	DismissableWindow::receive(e);
+ 	if (e.type() == Event::other_event) {
+ 		XEvent& xe = e.rep()->xevent_;
+@@ -477,7 +477,6 @@ if (xplace_) {
+ 			break;
+ 		}
+ 	}
+-	return false;
+ }
+ #endif
+ #endif
