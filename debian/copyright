@@ -23,12 +23,12 @@ License: GPL-2+
  License version 2 can be found in "/usr/share/common-licenses/GPL-2".
 
 Files: share/lib/python/rdxml.py
-X-Origin: http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2nrn/
+X-Source: http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2nrn/
 Copyright: TODO
 License: TODO
 
 Files: src/gnu
-X-Origin: GNU C++ Library
+X-Source: GNU C++ Library
 Copyright: 1988-1990, Free Software Foundation
 License: LGPL-2+
  This library is free software; you can redistribute it and/or modify
@@ -72,6 +72,7 @@ License: TODO
 
 Files: src/sparse13
 Copyright: 1985-1988 Kenneth S. Kundert and the University of California
+X-Source: http://www.netlib.org/sparse/
 License: MIT
   Permission to use, copy, modify, and distribute this software and
   its documentation for any purpose and without fee is hereby granted,
