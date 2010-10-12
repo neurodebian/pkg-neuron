@@ -1,0 +1,11 @@
+--- a/src/ivoc/ivoc.cpp
++++ b/src/ivoc/ivoc.cpp
+@@ -399,7 +399,7 @@ void single_event_run() {
+ 	}
+ #else
+ 	boolean dsav = session->done();
+-	session->unquit();
++	//session->unquit();
+ 	while (session->pending() && !session->done()) {
+ 		session->read(e);
+ 		e.handle();
