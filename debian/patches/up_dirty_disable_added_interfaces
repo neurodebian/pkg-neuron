@@ -1,0 +1,53 @@
+--- a/src/ivoc/ivoc.cpp
++++ b/src/ivoc/ivoc.cpp
+@@ -399,7 +399,7 @@ void single_event_run() {
+ 	}
+ #else
+ 	boolean dsav = session->done();
+-	session->unquit();
++	//session->unquit();
+ 	while (session->pending() && !session->done()) {
+ 		session->read(e);
+ 		e.handle();
+--- a/src/ivoc/apwindow.cpp
++++ b/src/ivoc/apwindow.cpp
+@@ -323,7 +323,7 @@ Coord PrintableWindow::width_pw() const
+ Coord PrintableWindow::height_pw() const { return Window::height();}
+ 
+ void PrintableWindow::request_on_resize(boolean b) {
+-	((Window*)this)->rep()->request_on_resize_ = b;
++	// ((Window*)this)->rep()->request_on_resize_ = b; // disabling added interfaces on top of ivtools
+ }
+ 
+ Coord PrintableWindow::save_left() const {
+--- a/src/ivoc/ocbox.cpp
++++ b/src/ivoc/ocbox.cpp
+@@ -585,11 +585,13 @@ void OcBox::adjust(Coord natural, int in
+ }
+ void OcBox::adjust(Coord natural, BoxAdjust* ba) {
+ 	ba->fixlay_->span(natural);
+-	Box::full_request(true);
++    // disabling added interfaces on top of ivtools
++	// Box::full_request(true);
+ 	bi_->box_->modified(0);
+ //	((Patch*)body())->reallocate();
+-	((Patch*)body())->redraw();
+-	Box::full_request(false);
++	// ((Patch*)body())->redraw();
++    // disabling added interfaces on top of ivtools
++	// Box::full_request(false);
+ }
+ 
+ NrnFixedLayout::NrnFixedLayout(const DimensionName d, Coord span) {
+--- a/src/ivoc/ocfile.cpp
++++ b/src/ivoc/ocfile.cpp
+@@ -462,7 +462,8 @@ void OcFile::file_chooser_style(char* ty
+ const char* OcFile::dir() {
+ #if HAVE_IV
+ 	if (fc_) {
+-		dirname_ = *fc_->dir();
++        // very dirty: disabling added interfaces on top of ivtools
++		dirname_ = ""; // *fc_->dir();
+ 	}else
+ #endif
+ 	{

@@ -1,0 +1,22 @@
+Description: hines IV specific -- see diff ./src/lib/InterViews/dialogs.c ../../historical/iv-hines-historical-githg/src/lib/InterViews/dialogs.cpp
+
+--- a/src/ivoc/ivoc.cpp
++++ b/src/ivoc/ivoc.cpp
+@@ -50,7 +50,7 @@ extern "C" {
+ // because NEURON can no longer maintain its own copy of dialogs.cpp
+ // we communicate with the InterViews version through a callback.
+ extern "C" {
+-extern boolean (*IVDialog_setAcceptInput)(boolean);
++//extern boolean (*IVDialog_setAcceptInput)(boolean);
+ boolean setAcceptInputCallback(boolean);
+ boolean setAcceptInputCallback(boolean b) {
+ 	Oc oc;
+@@ -136,7 +136,7 @@ Oc::Oc(Session *s, char* pname, char** e
+ 	if (session_) return;
+ 	refcnt_++;
+ 	session_ = s;
+-	IVDialog_setAcceptInput = setAcceptInputCallback;
++	//IVDialog_setAcceptInput = setAcceptInputCallback;
+ 	notify_change_ = new Observable();
+ 	if (s) {
+ 		helpmode_ = false;

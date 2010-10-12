@@ -1,0 +1,30 @@
+--- a/src/ivoc/apwindow.cpp
++++ b/src/ivoc/apwindow.cpp
+@@ -443,7 +443,7 @@ boolean PrintableWindow::receive(const E
+ 	return(false);
+ }
+ #else
+-boolean PrintableWindow::receive(const Event& e) {
++void PrintableWindow::receive(const Event& e) {
+ 	DismissableWindow::receive(e);
+ 	if (e.type() == Event::other_event) {
+ 		XEvent& xe = e.rep()->xevent_;
+@@ -479,7 +479,6 @@ if (xplace_) {
+ 			break;
+ 		}
+ 	}
+-	return false;
+ }
+ #endif
+ #endif
+--- a/src/ivoc/apwindow.h
++++ b/src/ivoc/apwindow.h
+@@ -65,7 +65,7 @@ public:
+ 	virtual void map();
+ 	virtual void unmap();
+ 	virtual void hide();
+-	virtual boolean receive(const Event&);
++	virtual void receive(const Event&);
+ 	virtual void reconfigured();
+ 	// The glyph the user actually wants printed
+ 	virtual Glyph* print_glyph();

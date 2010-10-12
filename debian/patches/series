@@ -1,4 +1,14 @@
+deb_no_libIVhines_versioncheck
+up_dirty_disable_added_interfaces
+up_dirty_voidreceive
 up_shebangs
 deb_neuromusic-destdir
 deb_nrnpython-against-built-libraries
 deb_makefiles-not-bins
+up_dirty_disable_added_mlinedit.cpp
+deb_nolibIV_la
+deb_dirty_attribute_overload
+deb_no_snapshot
+deb_dirty_setAcceptInput
+deb_use_libiv_instead_of_libivhines
+deb_link_Xext

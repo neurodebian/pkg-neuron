@@ -1,0 +1,13 @@
+Desription: ivoc_snapshot_ was introduced in hines IV
+
+--- a/src/ivoc/pwman.cpp
++++ b/src/ivoc/pwman.cpp
+@@ -12,7 +12,7 @@ extern char* ivoc_get_temp_file();
+ #if defined(WIN32)|| MAC
+ #define SNAPSHOT 0
+ #else
+-#define SNAPSHOT 1
++#define SNAPSHOT 0
+ #endif
+ 
+ #define DECO 2 // 1 means default on, 2 off. for Carnvale,Hines book figures

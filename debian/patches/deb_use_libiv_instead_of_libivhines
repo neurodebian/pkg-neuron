@@ -1,0 +1,55 @@
+From: Yaroslav Halchenko <debian@onerussian.com>
+Subject: use libIV instead of libIVhines
+Vendor: Debian
+
+diff --git a/m4/ivcheck.m4 b/m4/ivcheck.m4
+--- a/m4/ivcheck.m4
++++ b/m4/ivcheck.m4
+@@ -69,7 +69,7 @@ AC_HELP_STRING([--without-iv],[Do not compile graphics into neuron.])
+ ,[
+ 	dnl Interviews was specified:
+ 	HAVE_IV=1
+-	IVHINES=IVhines
++	IVHINES=IV
+ 	if test "$with_iv" = "no" ; then
+ 		dnl Interviews is not desired:
+ 		HAVE_IV=0
+@@ -86,8 +86,8 @@ AC_HELP_STRING([--without-iv],[Do not compile graphics into neuron.])
+ 			if test ! -d $IV_LIBDIR ; then
+ 				IV_LIBDIR="$IV_DIR"/lib
+ 			fi
+-			IV_LIBS="-L$IV_LIBDIR -lIVhines $X_LIBS"
+-			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIVhines.la"
++			IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
++			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
+ 			IV_INCLUDE=-I$IV_DIR/include
+ 		dnl check in /usr/local/iv
+ 		elif test -d /usr/local/iv ; then
+@@ -97,13 +97,13 @@ AC_HELP_STRING([--without-iv],[Do not compile graphics into neuron.])
+ 			if test ! -d $IV_LIBDIR ; then
+ 				IV_LIBDIR="$IV_DIR"/lib
+ 			fi
+-			IV_LIBS="-L$IV_LIBDIR -lIVhines $X_LIBS"
+-			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIVhines.la"
++			IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
++			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
+ 			IV_INCLUDE=-I$IV_DIR/include
+ 		dnl a standard? place
+ 		else
+ 			echo " not in  $IV_DIR"
+-			IV_LIBS="-lIVhines $X_LIBS"
++			IV_LIBS="-lIV $X_LIBS"
+ 			IV_LIBS_LIBTOOL="$IV_LIBS"
+ 		fi
+ 		if test -n "$IV_DIR" ; then
+@@ -118,8 +118,8 @@ AC_HELP_STRING([--without-iv],[Do not compile graphics into neuron.])
+ 	  if test ! -d $IV_LIBDIR ; then
+ 		  IV_LIBDIR="$IV_DIR"/lib
+ 	  fi
+-	  IV_LIBS="-L$IV_LIBDIR -lIVhines $X_LIBS"
+-	  IV_LIBS_LIBTOOL="$IV_LIBDIR/libIVhines.la"
++	  IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
++	  IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
+ 	  IV_INCLUDE=-I$IV_DIR/include
+ 	fi	  
+ 

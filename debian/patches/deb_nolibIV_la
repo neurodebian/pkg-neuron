@@ -1,0 +1,53 @@
+--- a/m4/ivcheck.m4
++++ b/m4/ivcheck.m4
+@@ -87,7 +87,7 @@ AC_HELP_STRING([--without-iv],[Do not co
+ 				IV_LIBDIR="$IV_DIR"/lib
+ 			fi
+ 			IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
+-			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
++			IV_LIBS_LIBTOOL=""
+ 			IV_INCLUDE=-I$IV_DIR/include
+ 		dnl check in /usr/local/iv
+ 		elif test -d /usr/local/iv ; then
+@@ -119,7 +119,7 @@ AC_HELP_STRING([--without-iv],[Do not co
+ 		  IV_LIBDIR="$IV_DIR"/lib
+ 	  fi
+ 	  IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
+-	  IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
++	  IV_LIBS_LIBTOOL=""
+ 	  IV_INCLUDE=-I$IV_DIR/include
+ 	fi	  
+ 
+--- a/src/ivoc/Makefile.am
++++ b/src/ivoc/Makefile.am
+@@ -11,7 +11,7 @@ IV_INCLUDES = @IV_INCLUDE@ $(X_CFLAGS)
+ nsrc=$(top_srcdir)/src
+ INCLUDES = -I$(nsrc)/gnu -I$(nsrc)/mesch -I$(top_builddir)/src/oc -I$(nsrc)/oc $(IV_INCLUDES)
+ 
+-IV_LIBS = @IV_LIBS_LIBTOOL@
++IV_LIBS = @IV_LIBS@
+ IVOS_DIR = @IVOS_DIR@
+ AM_CXXFLAGS = @MINGW_CFLAG@
+ 
+--- a/src/nrniv/Makefile.am
++++ b/src/nrniv/Makefile.am
+@@ -41,7 +41,7 @@ libnrniv_la_SOURCES = nrnmenu.cpp shape.
+ # The interviews includes must be before the X includes so that if a
+ # vanilla interviews is also installed, we don't use it.
+ IV_INCLUDES = @IV_INCLUDE@ $(X_CFLAGS)
+-IV_LIBS = @IV_LIBS_LIBTOOL@
++IV_LIBS = @IV_LIBS@
+ IVOS_DIR = @IVOS_DIR@
+ 
+ PVM_XTRA_LIBS = @PVM_XTRA_LIBS@
+--- a/bin/nrniv_makefile.in
++++ b/bin/nrniv_makefile.in
+@@ -30,7 +30,7 @@ X_CFLAGS = @X_CFLAGS@
+ X_LIBS = @X_LIBS@
+ X_EXTRA_LIBS = @X_EXTRA_LIBS@
+ X_PRE_LIBS = @X_PRE_LIBS@
+-IV_LIBS = @IV_LIBS_LIBTOOL@ $(X_PRE_LIBS) $(X_LIBS) $(X_EXTRA_LIBS)
++IV_LIBS = @IV_LIBS@ $(X_PRE_LIBS) $(X_LIBS) $(X_EXTRA_LIBS)
+ IVOS_LIB = @IVOS_LIB@
+ PVM_LIBS = @PVM_LIBS@ @PVM_XTRA_LIBS@
+ NJ_LIBS = @NRNJAVA_LIBS@
