@@ -28,8 +28,11 @@ PYVER=$(shell pyversions --default)
 override_dh_auto_configure:
 	./build.sh
 	NSRC=$$PWD dh_auto_configure -- \
-	 --without-iv --with-nrnpython=/usr/bin/python --with-music=/usr \
-	 --exec_prefix=/usr	--without-mpi
+	 --with-nrnpython=/usr/bin/python \
+	 --with-music=/usr \
+	 --with-iv=/usr \
+	 --exec_prefix=/usr \
+	 --without-mpi
 
 #override_dh_auto_build:
 #	dh_auto_build
