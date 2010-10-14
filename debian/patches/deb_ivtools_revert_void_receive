@@ -1,6 +1,8 @@
+Description: boolean return type was introduced just to please MSWIN platform code
+
 --- a/src/ivoc/apwindow.cpp
 +++ b/src/ivoc/apwindow.cpp
-@@ -443,7 +443,7 @@ boolean PrintableWindow::receive(const E
+@@ -441,7 +441,7 @@ boolean PrintableWindow::receive(const E
  	return(false);
  }
  #else
@@ -9,7 +11,7 @@
  	DismissableWindow::receive(e);
  	if (e.type() == Event::other_event) {
  		XEvent& xe = e.rep()->xevent_;
-@@ -479,7 +479,6 @@ if (xplace_) {
+@@ -477,7 +477,6 @@ if (xplace_) {
  			break;
  		}
  	}
