@@ -11,3 +11,4 @@ deb_dirty_attribute_overload
 deb_no_snapshot
 deb_dirty_setAcceptInput
 deb_use_libiv_instead_of_libivhines
+deb_link_Xext
