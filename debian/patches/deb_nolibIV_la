@@ -1,0 +1,20 @@
+--- a/m4/ivcheck.m4
++++ b/m4/ivcheck.m4
+@@ -87,7 +87,7 @@ AC_HELP_STRING([--without-iv],[Do not co
+ 				IV_LIBDIR="$IV_DIR"/lib
+ 			fi
+ 			IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
+-			IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
++			IV_LIBS_LIBTOOL=""
+ 			IV_INCLUDE=-I$IV_DIR/include
+ 		dnl check in /usr/local/iv
+ 		elif test -d /usr/local/iv ; then
+@@ -119,7 +119,7 @@ AC_HELP_STRING([--without-iv],[Do not co
+ 		  IV_LIBDIR="$IV_DIR"/lib
+ 	  fi
+ 	  IV_LIBS="-L$IV_LIBDIR -lIV $X_LIBS"
+-	  IV_LIBS_LIBTOOL="$IV_LIBDIR/libIV.la"
++	  IV_LIBS_LIBTOOL=""
+ 	  IV_INCLUDE=-I$IV_DIR/include
+ 	fi	  
+ 
