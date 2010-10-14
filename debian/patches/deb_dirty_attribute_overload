@@ -1,0 +1,47 @@
+--- a/src/ivoc/pwman.cpp
++++ b/src/ivoc/pwman.cpp
+@@ -2701,7 +2701,7 @@ boolean PWMImpl::file_control1() {
+ 		String str;
+ 		if (style->find_attribute("pwm_print_file_filter", str)) {
+ 			style->attribute("filter", "true");
+-			style->attribute("filterPattern", str);
++			style->attribute("filterPattern", (const char*)str);
+ 		}
+ 		style->attribute("caption", "Print Postscript to file");
+ 		style->attribute("open", "Print to file");
+@@ -2853,7 +2853,7 @@ void PWMImpl::idraw_control() {
+ 		String str;
+ 		if (style->find_attribute("pwm_idraw_file_filter", str)) {
+ 			style->attribute("filter", "true");
+-			style->attribute("filterPattern", str);
++			style->attribute("filterPattern", (const char*)str);
+ 		}
+ 		style->attribute("caption", "Idraw format to file");
+ 		style->attribute("open", "Write to file");
+@@ -2912,7 +2912,7 @@ void PWMImpl::ascii_control() {
+ 		String str;
+ 		if (style->find_attribute("pwm_ascii_file_filter", str)) {
+ 			style->attribute("filter", "true");
+-			style->attribute("filterPattern", str);
++			style->attribute("filterPattern", (const char*)str);
+ 		}
+ 		style->attribute("caption", "Ascii format to file");
+ 		style->attribute("open", "Write to file");
+@@ -3001,7 +3001,7 @@ void PWMImpl::save_control(int mode) {
+ 		String str;
+ 		if (style->find_attribute("pwm_save_file_filter", str)) {
+ 			style->attribute("filter", "true");
+-			style->attribute("filterPattern", str);
++			style->attribute("filterPattern", (const char*)str);
+ 		}
+ 		style->attribute("caption", "Save windows on paper icon to file");
+ 		style->attribute("open", "Save to file");
+@@ -3187,7 +3187,7 @@ void PWMImpl::retrieve_control() {
+ 		String str;
+ 		if (style->find_attribute("pwm_save_file_filter", str)) {
+ 			style->attribute("filter", "true");
+-			style->attribute("filterPattern", str);
++			style->attribute("filterPattern", (const char*)str);
+ 		}
+ 		style->attribute("caption", "Retrieve windows from file");
+ 		style->attribute("open", "Retrieve from file");

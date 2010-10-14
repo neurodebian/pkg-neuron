@@ -6,3 +6,5 @@ deb_nrnpython-against-built-libraries
 deb_makefiles-not-bins
 up_dirty_disable_added_mlinedit.cpp
 deb_nolibIV_la
+deb_dirty_attribute_overload
+deb_no_snapshot
