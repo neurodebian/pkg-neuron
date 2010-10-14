@@ -11,18 +11,15 @@
  		e.handle();
 --- a/src/ivoc/apwindow.cpp
 +++ b/src/ivoc/apwindow.cpp
-@@ -322,9 +322,11 @@ Coord PrintableWindow::bottom_pw() const
- Coord PrintableWindow::width_pw() const { return Window::width();}
+@@ -323,7 +323,7 @@ Coord PrintableWindow::width_pw() const
  Coord PrintableWindow::height_pw() const { return Window::height();}
  
-+#if 0                           // disabling added interfaces on top of ivtools
  void PrintableWindow::request_on_resize(boolean b) {
- 	((Window*)this)->rep()->request_on_resize_ = b;
+-	((Window*)this)->rep()->request_on_resize_ = b;
++	// ((Window*)this)->rep()->request_on_resize_ = b; // disabling added interfaces on top of ivtools
  }
-+#endif
  
  Coord PrintableWindow::save_left() const {
- #if 0
 --- a/src/ivoc/ocbox.cpp
 +++ b/src/ivoc/ocbox.cpp
 @@ -585,11 +585,13 @@ void OcBox::adjust(Coord natural, int in
