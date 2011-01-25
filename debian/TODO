@@ -54,6 +54,8 @@ $> /usr/bin/hel2mos1.sh
   src/mesch -- libmeschach1.2, libmeschach-dev
   src/mswin -- strip non-free -- windowss-pecific
 
+* Is any binary from interviews (e.g. idraw, idemo, iclass) necessary?
+
 Upstream
 ========
 
