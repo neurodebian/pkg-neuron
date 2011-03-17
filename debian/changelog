@@ -2,4 +2,4 @@ nrn (7.2+hg20100902-2) unstable; urgency=low
 
   * Initial release (Closes: #597196)
 
- -- NeuroDebian Team <team@neuro.debian.net>  Fri, 03 Sep 2010 00:01:13 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Jan 2011 18:46:22 -0500

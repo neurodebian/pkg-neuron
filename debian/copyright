@@ -4,7 +4,7 @@ Maintainer: Michael Hines <Michael.Hines@Yale.edu>
 Source: http://www.neuron.yale.edu/neuron
 
 Files: *
-Copyright: 1984-2010,  Michael Hines
+Copyright: 1984-2010,  Michael Hines <Michael.Hines@Yale.edu>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ License: LGPL-2+
  On Debian systems, the complete text of the GNU General Public
  License version 2 can be found in "/usr/share/common-licenses/LGPL-2".
 
+
 Files: src/ivo{s,c/{htlist.*,symchoos.*,{scene,field}.cpp}}
 Copyright: 1987-1991, Stanford University
  		   1991 Silicon Graphics, Inc.
@@ -69,12 +70,6 @@ Files: src/memacs/*
 Copyright: TODO
 License: TODO
 
-Files: src/ni_pci_6229/nrnni.cpp
-Copyright: TODO
-License: TODO
-
-TODO
-
 Files: src/sparse13
 Copyright: 1985-1988 Kenneth S. Kundert and the University of California
 License: MIT
@@ -89,5 +84,5 @@ License: MIT
 
 
 Files: debian/*
-Copyright: 2010, NeuroDebian Team <team@neuro.debian.net>
+Copyright: 2010, Yaroslav Halchenko <debian@onerussian.com>
 License: GPL-2+

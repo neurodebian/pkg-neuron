@@ -79,26 +79,5 @@ Upstream
 * --without-mpi in configure has no effect -- so everything builds
    using mpicc for no good reason
 
-
-* Warn about another non-distributable piece (and remove in my own copy?)
-
-Files: src/mac/sioux.c
-Copyright: 1995-2001 Metrowerks Corporation
-License: SHOWSTOPPER
-  http://www.qnx.com/legal/licensing/dev_license/eula/mtwks1_00.html
-  Note: Licensees may not distribute the source code of the Metrowerks
-  Standard Library, any derivative thereof, or sample code thereto,
-  without express written permission from an authorized officer of
-  Metrowerks Corp.
-
 * Some code is under GPL-3+, which automagically boosts your license
   for the complete product to version 3
-
-* Some code (e.g. winio/winio.h) under src/mswin specifies copyright
-  but lacks any license. thus making it an unusable/undistributable
-  beastie
-
-* src/ni_pci_6229/nrnni.cpp:// copied from niddk/100a2/examples/main.cpp
-  COPYRIGHT? License?
-
-  
