@@ -2,23 +2,24 @@ Source: nrn
 Section: science
 Priority: extra
 Maintainer: NeuroDebian Team <team@neuro.debian.net>
+Uploaders: Yaroslav Halchenko <debian@onerussian.com>, Michael Hanke <michael.hanke@gmail.com>
 Build-Depends: debhelper (>= 7.0.50~),
-			   autotools-dev, autoconf, automake, libtool,
- 			   libmusic-dev, music-bin,
-			   pvm-dev,
-			   python-dev, cython,
-			   bison, flex
+               autotools-dev, autoconf, automake, libtool,
+               libmusic-dev, music-bin,
+               libopenmpi-dev,
+               pvm-dev,
+               python-dev, python-support, cython,
+               bison, flex
 Standards-Version: 3.9.1
 Homepage: http://www.neuron.yale.edu
-XS-Python-Version: current, >= 2.5
-#Vcs-Git: git://git.debian.org/collab-maint/nrn.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/nrn.git;a=summary
+Vcs-Browser: http://git.debian.org/?p=pkg-exppsy/nrn.git
+Vcs-Git: git://git.debian.org/git/pkg-exppsy/nrn.git
 
 Package: neuron
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
-		 libneuron0 (= ${binary:Version}),
-		 neuron-common (= ${source:Version})
+         libneuron0 (= ${binary:Version}),
+         neuron-common (= ${source:Version})
 Suggests: python-neuron
 Description: efficient simulator of neurons and networks
  TODO2
@@ -38,11 +39,11 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libneuron0 (= ${binary:Version}),
          neuron (= ${binary:Version}),
-Description: NEURON simulator - debugging symbols
+Description: NEURON simulator -- debugging symbols
  TODO2
  .
- This package provides debugging symbols for dynamic libraries and
- binaries of NEURON simulator.
+ This package provides debugging symbols for dynamic libraries,
+ binaries, and Python extensions of NEURON simulator.
 
 
 Package: libneuron0

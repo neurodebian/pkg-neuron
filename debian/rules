@@ -7,7 +7,7 @@ udebver = $(shell echo $(debver) | cut -d '-' -f 1,1 )
 
 # To deduce upstream's own version
 urepo = ../nrnpkg-hg
-urepover = $(shell cd $(urepo); { ./hg2nrnversion_h.sh; echo 'NRN_MAJOR_VERSION.NRN_MINOR_VERSION+hg-HG_DATE.dfsg'; } | cpp | sed -n -e '/+hg/s/["-]//gp')
+urepover = $(shell cd $(urepo); { ./hg2nrnversion_h.sh; echo 'NRN_MAJOR_VERSION.NRN_MINOR_VERSION~hg-HG_DATE.dfsg'; } | cpp | sed -n -e '/~hg/s/["-]//gp')
 
 CFLAGS = -Wall -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -26,12 +26,11 @@ PYVER=$(shell pyversions --default)
 # Override parameters for configure
 #   --with-music necessary ATM to have CYTHON defined even for
 #                just getting a source distribution out
-#   --without-mpi  -- MPI builds should be done later on
 override_dh_auto_configure:
 	./build.sh
 	NSRC=$$PWD dh_auto_configure -- \
 	 --without-iv --with-nrnpython=/usr/bin/python --with-music=/usr \
-	 --exec_prefix=/usr	--without-mpi
+	 --exec_prefix=/usr
 
 #override_dh_auto_build:
 #	dh_auto_build

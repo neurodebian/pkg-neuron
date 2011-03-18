@@ -1,4 +1,4 @@
-nrn (7.2+hg20110216.dfsg-1) UNRELEASED; urgency=low
+nrn (7.2~hg20110216.dfsg-1) UNRELEASED; urgency=low
 
   * Initial release (Closes: #597196)
 
