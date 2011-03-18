@@ -1,11 +1,13 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+srcpkg = $(shell LC_ALL=C dpkg-parsechangelog | grep '^Source:' | cut -d ' ' -f 2,2)
+debver = $(shell LC_ALL=C dpkg-parsechangelog | grep '^Version:' | cut -d ' ' -f 2,2 )
+udebver = $(shell echo $(debver) | cut -d '-' -f 1,1 )
 
-# This has to be exported to make some magic below work.
-# export DH_OPTIONS
+# To deduce upstream's own version
+urepo = ../nrnpkg-hg
+urepover = $(shell cd $(urepo); { ./hg2nrnversion_h.sh; echo 'NRN_MAJOR_VERSION.NRN_MINOR_VERSION+hg-HG_DATE'; } | cpp | sed -n -e '/+hg/s/["-]//gp')
 
 CFLAGS = -Wall -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -76,3 +78,15 @@ override_dh_auto_clean:
 	-rm ylwrap aclocal.m4 depcomp missing install-sh ltmain.sh src/nrnoc/hocusr.h
 	-rm configure config.* *.h.in
 	-rm m4/ltsugar.m4 m4/ltversion.m4 m4/lt~obsolete.m4 m4/ltoptions.m4 m4/libtool.m4
+
+
+# construct orig tarball from the upstream's nrnpkg repository
+# while immediately cleaning out of non-DFSG or simply irrelevant materials
+# Also prune components provided by Debian system:
+#    -- mesch: libmeschach-dev
+#  TODO: check for more (see debian/copyright for possibly more hints)
+get-orig-source:
+	cd $(urepo) && hg archive --type tgz -p $(srcpkg)-$(urepover) \
+		--exclude 're:src/(mac|mswin|mesch)' \
+		../$(srcpkg)_$(urepover).orig.tar.gz
+
