@@ -76,16 +76,6 @@ Description: NEURON simulator - Python bindings
  .
  This package provides Python interface to NEURON.
 
-Package: python-neuron-dbg
-Section: debug
-Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends},
-         python-neuron (= ${binary:Version})
-Description: NEURON simulator - Python bindings
- TODO2
- .
- This package provides Python interface to NEURON.
-
 # Package: neuron-doc
 # Architecture: all
 # Description: documentation for NEURON simulator
