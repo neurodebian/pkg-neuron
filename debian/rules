@@ -82,11 +82,9 @@ override_dh_auto_clean:
 
 # construct orig tarball from the upstream's nrnpkg repository
 # while immediately cleaning out of non-DFSG or simply irrelevant materials
-# Also prune components provided by Debian system:
-#    -- mesch: libmeschach-dev
-#  TODO: check for more (see debian/copyright for possibly more hints)
+#  TODO: check for more (see debian/{copyright,TODO} for possibly more hints)
 get-orig-source:
 	cd $(urepo) && hg archive --type tgz -p $(srcpkg)-$(urepover) \
-		--exclude 're:src/(mac|mswin|mesch)' \
+		--exclude 're:src/(mac|mswin)' \
 		../$(srcpkg)_$(urepover).orig.tar.gz
 

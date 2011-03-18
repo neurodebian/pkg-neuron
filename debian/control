@@ -24,7 +24,6 @@ Description: efficient simulator of neurons and networks
  TODO2
 
 Package: neuron-common
-Section: libs
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: NEURON simulator - common architecture independent files

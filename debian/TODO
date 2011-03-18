@@ -18,7 +18,7 @@ Debian
 * should demo get a separate package?
   for now in neuron-common
 
-* memacs?  ng seems to be similar... but not the same
+- memacs?  ng seems to be similar... but not the same
   --without-memacs   ?
 
 *  /usr/bin/modlunit  relies on ./share/lib/nrnunits.lib
@@ -52,6 +52,31 @@ $> /usr/bin/hel2mos1.sh
 
   src/mac   -- strip non-free (see below) -- mac-specific
   src/mesch -- libmeschach1.2, libmeschach-dev
+
+  * but has some NEURON bits, e.g
++   if ( ! err_list[list_num].warn )  {
++#ifdef NEURON
++       hoc_execerror("meschach library error", (char*)0);
++#else
++       exit(0);
++#endif
++   }
+
+and "fixes?" like
+-    if ( from < to )
++    if ( from >= to )
+
+-               while ( d->ve[--j] < v )
++               while ( i < j && d->ve[--j] < v )
+
++       if (f == VNULL && limit == 1) { /* some calloc's do not allow 0 size */
++               f = v_resize(f, limit);
++       }
+
+
+  * and some files are missing, e.g. src/mesch/iotort.c
+  * and #include <../../nrnconf.h> all around
+
   src/mswin -- strip non-free -- windowss-pecific
 
 * Is any binary from interviews (e.g. idraw, idemo, iclass) necessary?
