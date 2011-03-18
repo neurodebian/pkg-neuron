@@ -1,5 +1,5 @@
-nrn (7.2+hg20100902-2) unstable; urgency=low
+nrn (7.2+hg20110216.dfsg-1) UNRELEASED; urgency=low
 
   * Initial release (Closes: #597196)
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Jan 2011 18:46:22 -0500
+ -- Yaroslav Halchenko <debian@onerussian.com>  Fri, 18 Mar 2011 19:23:52 -0400
