@@ -31,6 +31,7 @@ override_dh_auto_configure:
 	NSRC=$$PWD dh_auto_configure -- \
 	 --without-iv --with-nrnpython=/usr/bin/python --with-music=/usr \
 	 --exec_prefix=/usr
+	cp debian/source/nrnversion.h src/nrnoc/
 
 #override_dh_auto_build:
 #	dh_auto_build
@@ -67,13 +68,15 @@ override_dh_auto_clean:
 	-rm ylwrap aclocal.m4 depcomp missing install-sh ltmain.sh src/nrnoc/hocusr.h
 	-rm configure config.* *.h.in
 	-rm m4/ltsugar.m4 m4/ltversion.m4 m4/lt~obsolete.m4 m4/ltoptions.m4 m4/libtool.m4
-
+	-rm src/nrnoc/nrnversion.h
 
 # construct orig tarball from the upstream's nrnpkg repository
 # while immediately cleaning out of non-DFSG or simply irrelevant materials
 #  TODO: check for more (see debian/{copyright,TODO} for possibly more hints)
 get-orig-source:
-	cd $(urepo) && hg archive --type tgz -p $(srcpkg)-$(urepover) \
-		--exclude 're:src/(mac|mswin)' \
-		../$(srcpkg)_$(urepover).orig.tar.gz
+	cd $(urepo) \
+		&& hg archive --type tgz -p $(srcpkg)-$(urepover) \
+		              --exclude 're:src/(mac|mswin)' \
+		            ../$(srcpkg)_$(urepover).orig.tar.gz \
+		&& ./hg2nrnversion_h.sh >| $(CURDIR)/debian/source/nrnversion.h
 
