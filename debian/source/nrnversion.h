@@ -1,0 +1,7 @@
+#define NRN_MAJOR_VERSION "7"
+#define NRN_MINOR_VERSION "2"
+#define HG_DATE "2011-02-16"
+#define HG_BRANCH "trunk"
+#define HG_CHANGESET "e0e3fb272e25"
+#define HG_LOCAL "503"
+#define HG_TAG "tip"
