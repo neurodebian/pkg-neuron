@@ -3,3 +3,4 @@ deb_neuromusic-destdir
 deb_nrnpython-against-built-libraries
 deb_makefiles-not-bins
 deb_dfsg_no_win_mac
+deb_nopyver_checking
