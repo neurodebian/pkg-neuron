@@ -17,6 +17,9 @@ else
 endif
 export CFLAGS
 
+export LDFLAGS = -Wl,--as-needed
+# -Wl,--no-undefined  would not work... e.g. in memacs emacs_exit is present only in main.c but tries to get into .so
+
 # Default Python version which is supported
 PYVER=$(shell pyversions --default)
 
