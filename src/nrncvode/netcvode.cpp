@@ -106,7 +106,7 @@ extern void nrn_update_ps2nt();
 extern void nrn_use_busywait(int);
 extern double* nrn_recalc_ptr(double*);
 void* nrn_interthread_enqueue(NrnThread*);
-extern void (*nrnmpi_v_transfer_)(NrnThread*);
+extern void (*nrnthread_v_transfer_)(NrnThread*);
 #if NRN_MUSIC
 extern void nrnmusic_injectlist(void*, double);
 #endif
@@ -328,7 +328,7 @@ DiscreteEvent* PlayRecordEvent::savestate_read(FILE* f) {
 	DiscreteEvent* de = nil;
 	char buf[100];
 	int type, plr_index;
-	fgets(buf, 100, f);
+	assert(fgets(buf, 100, f));
 	sscanf(buf, "%d %d\n", &type, &plr_index);
 	PlayRecord* plr = net_cvode_instance->playrec_item(plr_index);
 	assert(plr && plr->type() == type);
@@ -343,7 +343,7 @@ PlayRecordSave* PlayRecord::savestate_read(FILE* f) {
 	PlayRecordSave* prs = nil;
 	int type, index;
 	char buf[100];
-	fgets(buf, 100, f);
+	assert(fgets(buf, 100, f));
 	assert(sscanf(buf, "%d %d\n", &type, &index) == 2);
 	PlayRecord* plr = net_cvode_instance->playrec_item(index);
 	assert(plr->type() == type);
@@ -2102,8 +2102,6 @@ ENDGUI
 	}else{
 		nt_t += 1e9;
 	}
-	t = nt_t;
-	dt = nt_dt;
 	return err;
 }
 
@@ -3192,7 +3190,7 @@ DiscreteEvent* SelfEvent::savestate_read(FILE* f) {
 	int ppindex, ncindex, moff, pptype, iml;
 	double flag;
 	Object* obj;
-	fgets(buf, 300, f);
+	assert(fgets(buf, 300, f));
 	assert(sscanf(buf, "%s %d %d %d %d %lf\n", ppname, &ppindex, &pptype, &ncindex, &moff, &flag) == 6);
 #if 0
 	// use of hoc_name2obj is way too inefficient
@@ -3595,11 +3593,13 @@ void ncs2nrn_integrate(double tstop) {
 #endif
 		{
 			net_cvode_instance->solve(tstop);
+			t = nt_t;
+			dt = nt_dt;
 		}
 	}else{
 #if 1
 	    int n = (int)((tstop - nt_t)/dt + 1e-9);
-	    if (n > 3 && !nrnmpi_v_transfer_) {
+	    if (n > 3 && !nrnthread_v_transfer_) {
 		nrn_fixed_step_group(n);
 	    }else
 #endif
@@ -4429,7 +4429,7 @@ void NetCvode::presyn_disconnect(PreSyn* ps) {
 		ps->thvar_ = nil;
 	}
 	if (gcv_) {
-		for (int it = 0; it < nrn_nthread; ++it) {
+		for (int it = 0; it < gcv_->nctd_; ++it) {
 			PreSynList* psl = gcv_->ctd_[it].psl_th_;
 			if (psl) for (int j = 0; j < psl->count(); ++j) {
 				if (psl->item(j) == ps) {
@@ -4582,7 +4582,7 @@ DiscreteEvent* NetCon::savestate_read(FILE* f) {
 	int index;
 	char buf[200];
 //	fscanf(f, "%d\n", &index);
-	fgets(buf, 200, f);
+	assert(fgets(buf, 200, f));
 	sscanf(buf, "%d\n", &index);
 	NetCon* nc = NetConSave::index2netcon(index);
 	assert(nc);
@@ -4822,7 +4822,7 @@ DiscreteEvent* PreSyn::savestate_read(FILE* f) {
 	PreSyn* ps = nil;
 	char buf[200];
 	int index, tid;
-	fgets(buf, 200, f);
+	assert(fgets(buf, 200, f));
 	assert(sscanf(buf, "%d %d\n", &index, &tid) == 2);
 	ps = PreSynSave::hindx2presyn(index);
 	assert(ps);
@@ -4832,7 +4832,7 @@ DiscreteEvent* PreSyn::savestate_read(FILE* f) {
 
 void PreSynSave::savestate_write(FILE* f) {
 	fprintf(f, "%d\n", PreSynType);
-	fprintf(f, "%d %d\n", presyn_->hi_index_, presyn_->nt_?presyn_->nt_->id:0);
+	fprintf(f, "%ld %d\n", presyn_->hi_index_, presyn_->nt_?presyn_->nt_->id:0);
 }
 
 declareTable(PreSynSaveIndexTable, long, PreSyn*)
@@ -5626,7 +5626,7 @@ void VecRecordDiscreteSave::savestate_write(FILE* f) {
 }
 void VecRecordDiscreteSave::savestate_read(FILE* f) {
 	char buf[100];
-	fgets(buf, 100, f);
+	assert(fgets(buf, 100, f));
 	assert(sscanf(buf, "%d\n", &cursize_) == 1);
 }
 
@@ -6058,7 +6058,7 @@ void NetCvode::recalc_ptrs() {
 static double lvardt_tout_;
 
 static void* lvardt_integrate(NrnThread* nt) {
-	int err = NVI_SUCCESS;
+	long int err = NVI_SUCCESS;
 	int id = nt->id;
 	NetCvode* nc = net_cvode_instance;
 	NetCvodeThreadData& p = nc->p[id];

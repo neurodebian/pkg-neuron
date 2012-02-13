@@ -202,6 +202,22 @@ plot.c,v
 
 #include <stdio.h>
 #include <string.h>
+
+#if defined(__MINGW32__)
+extern char** _environ;
+#else /*!__MINGW32__*/
+
+#if HAVE_UNISTD_H
+#include <unistd.h>
+#if !defined(__APPLE__)
+extern char** environ;
+#else /* __APPLE */
+#include <crt_externs.h>
+#endif /* __APPLE__ */
+#endif /* HAVE_UNISTD_H */
+
+#endif /*!__MINGW32__*/
+
 #if DOS
 #include <graphics.h>
 #include <dos.h>
@@ -492,10 +508,15 @@ hoc_outtext(s) char* s; {
 }
 #endif
 
-initplot(environ)
-	char *environ[];
+initplot()
 {
 	int i;
+#if defined(__MINGW32__)
+	char** environ=_environ;
+#endif
+#if defined (__APPLE__)
+	char** environ=(*_NSGetEnviron());
+#endif
 #if defined(__TURBOC__)
 	graphdev = 0;
 #else
