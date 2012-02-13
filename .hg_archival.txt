@@ -1,5 +1,5 @@
 repo: 8f1e96e310ddab73862751ac43cf7818660c9aee
-node: e0e3fb272e25b5deb9b6abbd541a51f5f687f7ca
-branch: trunk
+node: 42a47463b504ffa041c9b0edcd62e87527f20f20
+branch: Release 7.2
 latesttag: null
-latesttagdistance: 428
+latesttagdistance: 471

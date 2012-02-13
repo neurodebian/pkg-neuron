@@ -745,10 +745,10 @@ hoc_main1_init(pname, envp)
 		nrn_exit(1);
 	}
 
-	save_parallel_envp(envp);
+	save_parallel_envp();
 
 	init();
-	initplot(envp);
+	initplot();
 #if defined(__GO32__)
 	setcbrk(0);
 #endif
@@ -987,7 +987,7 @@ hoc_final_exit() {
 #else
 	sprintf(buf, "%s/lib/cleanup %d", neuron_home, hoc_pid());
 #endif
-	system(buf);
+	if (system(buf)) {;} // ignore return value
 #endif
 }
 	
@@ -1344,7 +1344,7 @@ warning(s, t)	/* print warning message */
 	n = strlen(cbuf);
 	for (cp = cbuf; cp < (cbuf + n); ++cp) {
 		if (!isprint((int)(*cp)) && !isspace((int)(*cp))) {
-			Fprintf(stderr, "%scharacter \\%03o at position %d is not printable\n", id, ((int)(*cp) & 0xff), cp-cbuf);
+			Fprintf(stderr, "%scharacter \\%03o at position %ld is not printable\n", id, ((int)(*cp) & 0xff), cp-cbuf);
 			break;
 		}
 	}

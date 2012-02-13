@@ -31,7 +31,8 @@ extern void linmod_dkmap(double**, double**);
 extern double* sp13mat;
 
 #if 1 || PARANEURON
-extern void (*nrnmpi_v_transfer_)(NrnThread*);
+extern void (*nrnthread_v_transfer_)(NrnThread*);
+extern void (*nrnmpi_v_transfer_)();
 #endif
 
 extern void (*nrn_multisplit_setup_)();
@@ -88,6 +89,8 @@ boolean Cvode::init_global() {
 #if PARANEURON
 	if (!use_partrans_ && nrnmpi_numprocs > 1
 	    && (nrnmpi_v_transfer_ || nrn_multisplit_solve_)) {
+		assert(nrn_nthread == 1); // we lack an NVector class for both
+		// threads and mpi together
 		// could be a lot better.
 		use_partrans_ = true;
 		mpicomm_ = nrnmpi_comm;
@@ -151,13 +154,7 @@ void Cvode::init_eqn(){
 			zneq += cml->ml->nodecount * (*s)(cml->index);
 		}
 	}
-//printf("Cvode::init_eqn neq_v=%d zneq_=%d\n", neq_v, zneq_);
-#if PARANEURON
-	if (use_partrans_) {
-		assert(nrn_nthread == 0 && !nth_); //single thread global step
-		global_neq_ = nrnmpi_int_sum_reduce(neq_, mpicomm_);
-	}
-#endif
+//printf("%d Cvode::init_eqn neq_v=%d zneq_=%d\n", nrnmpi_myid, neq_v, zneq_);
 	if (z.pv_) {
 		delete [] z.pv_;
 		delete [] z.pvdot_;
@@ -173,6 +170,12 @@ void Cvode::init_eqn(){
 	neq_ += zneq;
 	if (nth_) { break; } //lvardt
     }
+#if PARANEURON
+	if (use_partrans_) {
+		global_neq_ = nrnmpi_int_sum_reduce(neq_, mpicomm_);
+//printf("%d global_neq_=%d neq=%d\n", nrnmpi_myid, global_neq_, neq_);
+	}
+#endif
 	atolvec_alloc(neq_);
     for (int id = 0; id < nctd_; ++id) {
 	CvodeThreadData& z = ctd_[id];
@@ -653,9 +656,8 @@ void Cvode::fun_thread_transfer_part2(double* ydot, NrnThread* nt){
 	CvodeThreadData& z = CTD(nt->id);
 	if (z.nvsize_ == 0) { return; }
 #if 1 || PARANEURON
-	if (nrnmpi_v_transfer_) {
-		assert(nrn_nthread == 1);
-		(*nrnmpi_v_transfer_)(nt);
+	if (nrnthread_v_transfer_) {
+		(*nrnthread_v_transfer_)(nt);
 	}
 #endif
 	before_after(z.before_breakpoint_, nt);
@@ -704,8 +706,8 @@ void Cvode::fun_thread_ms_part3(NrnThread* nt){
 }
 void Cvode::fun_thread_ms_part4(double* ydot, NrnThread* nt) {
 #if 1 || PARANEURON
-	if (nrnmpi_v_transfer_) {
-		(*nrnmpi_v_transfer_)(nt);
+	if (nrnthread_v_transfer_) {
+		(*nrnthread_v_transfer_)(nt);
 	}
 #endif
 	CvodeThreadData& z = ctd_[nt->id];

@@ -194,6 +194,15 @@ static double last_maxstep_arg_;
 static NetParEvent* npe_; // nrn_nthread of them
 static int n_npe_; // just to compare with nrn_nthread
 
+#if NRNMPI
+// for combination of threads and mpi.
+#if USE_PTHREAD
+static MUTDEC
+#endif
+static int seqcnt_;
+static NrnThread* last_nt_;
+#endif
+
 #if NRN_MUSIC
 #include "nrnmusic.cpp"
 #endif
@@ -208,6 +217,7 @@ void NetParEvent::send(double tt, NetCvode* nc, NrnThread* nt){
 	nc->event(tt + usable_mindelay_, this, nt);
 }
 void NetParEvent::deliver(double tt, NetCvode* nc, NrnThread* nt){
+	int seq;
 	if (nrn_use_selfqueue_) { //first handle pending flag=1 self events
 		nrn_pending_selfqueue(tt, nt);
 	}
@@ -220,7 +230,12 @@ void NetParEvent::deliver(double tt, NetCvode* nc, NrnThread* nt){
 	nt->_stop_stepping = 1;
 	nt->_t = tt;
 #if NRNMPI
-    if (nrnmpi_numprocs > 0 && nt->id == 0) {
+    if (nrnmpi_numprocs > 0) {
+	MUTLOCK
+	seq = ++seqcnt_;
+	MUTUNLOCK
+      if (seq == nrn_nthread) {
+	last_nt_ = nt;
 #if BGPDMA
 	if (use_bgpdma_) {
 		bgp_dma_receive();
@@ -232,6 +247,8 @@ void NetParEvent::deliver(double tt, NetCvode* nc, NrnThread* nt){
 #endif
 	wx_ += wt_;
 	ws_ += wt1_;
+	seqcnt_ = 0;
+     }
    }
 #endif
 	send(tt, nc, nt);
@@ -255,7 +272,7 @@ DiscreteEvent* NetParEvent::savestate_save(){
 DiscreteEvent* NetParEvent::savestate_read(FILE* f){
 	int i;
 	char buf[100];
-	fgets(buf, 100, f);
+	assert(fgets(buf, 100, f));
 	assert(sscanf(buf, "%d\n", &i) == 1);
 	//printf("NetParEvent::savestate_read %d\n", i);
 	NetParEvent* npe = new NetParEvent();
@@ -273,13 +290,13 @@ void NetParEvent::savestate_restore(double tt, NetCvode* nc){
 	if (use_compress_) {
 		t_exchange_ = t;
 	}
+#endif
 	if (ithread_ == 0) {
 		//npe_->pr("savestate_restore", tt, nc);
 		for (int i=0; i < nrn_nthread; ++i) {
 			nc->event(tt, npe_+i, nrn_threads + i);
 		}
 	}
-#endif
 }
 
 #if NRNMPI
@@ -300,6 +317,7 @@ inline static int spupk(unsigned char* c) {
 
 void nrn_outputevent(unsigned char localgid, double firetime) {
 	if (!active_) { return; }
+	MUTLOCK
 	nout_++;
 	int i = idxout_;
 	idxout_ += 2;
@@ -310,11 +328,13 @@ void nrn_outputevent(unsigned char localgid, double firetime) {
 	spfixout_[i++] = (unsigned char)((firetime - t_exchange_)*dt1_ + .5);
 	spfixout_[i] = localgid;
 //printf("%d idx=%d lgid=%d firetime=%g t_exchange_=%g [0]=%d [1]=%d\n", nrnmpi_myid, i, (int)localgid, firetime, t_exchange_, (int)spfixout_[i-1], (int)spfixout_[i]);
+	MUTUNLOCK
 }
 
 #ifndef USENCS
 void nrn2ncs_outputevent(int gid, double firetime) {
 	if (!active_) { return; }
+	MUTLOCK
     if (use_compress_) {
 	nout_++;
 	int i = idxout_;
@@ -355,6 +375,7 @@ void nrn2ncs_outputevent(int gid, double firetime) {
 	}
 #endif
     }
+	MUTUNLOCK
 //printf("%d cell %d in slot %d fired at %g\n", nrnmpi_myid, gid, i, firetime);
 }
 #endif //USENCS
@@ -455,6 +476,17 @@ void nrn_spike_exchange_init() {
     }
 	nout_ = 0;
 	nsend_ = nsendmax_ = nrecv_ = nrecv_useful_ = 0;
+	if (nrnmpi_numprocs > 0) {
+		if (nrn_nthread > 0) {
+#if USETHREAD
+			if (!mut_) {
+				MUTCONSTRUCT(1)
+			}
+#endif
+		}else{
+			MUTDESTRUCT
+		}
+	}
 #endif // NRNMPI
 	//if (nrnmpi_myid == 0){printf("usable_mindelay_ = %g\n", usable_mindelay_);}
 }
@@ -886,7 +918,11 @@ double BBS::threshold() {
 void BBS::cell() {
 	int gid = int(chkarg(1, 0., MD));
 	PreSyn* ps;
-	assert(gid2out_->find(gid, ps));
+	if (gid2out_->find(gid, ps) == 0) {
+		char buf[100];
+		sprintf(buf, "gid=%d has not been set on rank %d", gid, nrnmpi_myid);
+		hoc_execerror(buf, 0);
+	}
 	Object* ob = *hoc_objgetarg(2);
 	if (!ob || ob->ctemplate != netcon_sym_->u.ctemplate) {
 		check_obj_type(ob, "NetCon");
@@ -964,7 +1000,11 @@ Object** BBS::gid_connect(int gid) {
 	PreSyn* ps;
 	if (gid2out_->find(gid, ps)) {
 		// the gid is owned by this machine so connect directly
-		assert(ps);
+		if (!ps) {
+			char buf[100];
+			sprintf(buf, "gid %d owned by %d but no associated cell", gid, nrnmpi_myid);
+			hoc_execerror(buf, 0);
+		}
 	}else if (gid2in_->find(gid, ps)) {
 		// the gid stub already exists
 //printf("%d connect %s from already existing %d\n", nrnmpi_myid, hoc_object_name(target), gid);

@@ -15,6 +15,14 @@ extern "C" {
 
 #include <stdio.h>
 #include <stdlib.h>
+#if HAVE_UNISTD_H
+#include <unistd.h>
+#if !defined (__APPLE__)
+extern char** environ;
+#else
+#include <crt_externs.h>
+#endif
+#endif
 
 #if HAVE_IV
 #ifdef WIN32
@@ -174,7 +182,7 @@ extern HWND hCurrWnd;
 
 extern "C" {
 	extern void setneuronhome(const char*);
-	extern char* neuron_home;
+	extern const char* neuron_home;
 	int hoc_xopen1(const char* filename, const char* rcs);
 	extern int units_on_flag_;
 	extern double hoc_default_dll_loaded_;
@@ -188,17 +196,16 @@ void setneuronhome(const char*) {
 #endif
 
 #if 0
-void penv(char** env) {
-	 int i;
-	 for (i=0; env[i]; ++i) {
-		printf("%lx %s\n", (long)env[i], env[i]);
-	 }
+void penv() {
+	int i;
+	for (i=0; environ[i]; ++i) {
+		printf("%lx %s\n", (long)environ[i], environ[i]);
+	}
 }
 #endif
 
 #if MAC
 #include <string.h>
-#include <unistd.h>
 #include <sioux.h>
 extern boolean mac_load_dll(const char*);
 extern "C" {
@@ -329,6 +336,10 @@ void prargs(const char* s, int argc, char** argv) {
 // see nrnmain.cpp for the real main()
 
 int ivocmain (int argc, char** argv, char** env) {
+// third arg should not be used as it might become invalid
+// after putenv or setenv. Instead, if necessary use
+// #include <unistd.h>
+// extern char** environ;
 	int i;
 //	prargs("at beginning", argc, argv);
 	force_load();
@@ -461,6 +472,14 @@ int ivocmain (int argc, char** argv, char** env) {
 #else
 #error "I don't know how to set environment variables."
 // Maybe in this case the user will have to set it by hand.
+#endif
+		// putenv and setenv may invalidate env but we no longer
+		// use it so following should not be needed
+#if HAVE_UNISTD_H && !defined(__APPLE__)
+	env = environ;
+#endif
+#if defined (__APPLE__)
+	env = (*_NSGetEnviron());
 #endif
 	}
 

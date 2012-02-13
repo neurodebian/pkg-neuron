@@ -11,6 +11,7 @@
 extern "C" {
 
 #include "parse.h"
+extern Section* nrn_noerr_access();
 extern void hoc_pushs(Symbol*);
 extern double* hoc_evalpointer();
 extern Symlist* hoc_top_level_symlist;
@@ -64,7 +65,7 @@ static char array_interface_typestr[5] = "|f8";
 static PyObject* pfunc_get_docstring = NULL;
 
 
-  static char* hocobj_docstring = "class neuron.hoc.HocObject - Hoc Object wrapper";
+static const char* hocobj_docstring = "class neuron.hoc.HocObject - Hoc Object wrapper";
 
 
 #if 0
@@ -812,7 +813,6 @@ static PyObject* hocobj_getattr(PyObject* subself, PyObject* name) {
 	      }else{
 		return NULL;
 	      }
-
 	    }else{
 		// ipython wants to know if there is a __getitem__
 		// even though it does not use it.
@@ -863,6 +863,16 @@ static PyObject* hocobj_getattr(PyObject* subself, PyObject* name) {
 	switch (sym->type) {
 	case VAR: // double*
 		if (!ISARRAY(sym)) {
+			if (sym->subtype == USERINT) {
+				Py_BuildValue("i", *(sym->u.pvalint));
+				break;
+			}
+			if (sym->subtype == USERPROPERTY) {
+				if (!nrn_noerr_access()) {
+					PyErr_SetString(PyExc_TypeError, "Section access unspecified");
+					break;
+				}
+			}
 			hoc_pushs(sym);
 			hoc_evalpointer();
 			if (isptr) {
@@ -1205,8 +1215,24 @@ static PyObject* iternext_sl(PyHocObject* po, hoc_Item* ql) {
 		if (q->prev != ql) {
 			nrn_popsec();
 		}
-		nrn_pushsec(q->element.sec);
-		po->iteritem_ = q->next;
+		for (;;) { // have to watch out for deleted sections.
+			hoc_Item* q1 = q->next;
+			Section* sec = q->element.sec;
+			if (!sec->prop) { // delete from list and go on
+				// to the next. If no more return NULL
+				hoc_l_delete(q);
+				section_unref(sec);
+				q = q1;
+				if (q != ql) {
+					continue;
+				}else{
+					return NULL;
+				}
+			}
+			nrn_pushsec(sec);
+			po->iteritem_ = q1;
+			break;
+		}
 		return nrnpy_cas(NULL, NULL);
 	}else{
 		if (q->prev != ql) {
@@ -1301,7 +1327,7 @@ static PyObject* hocobj_getitem(PyObject* self, Py_ssize_t ix) {
 			}
 		}
 		char e[200];
-		sprintf(e, "%s[%d] instance does not exist", po->sym_->name, ix);
+		sprintf(e, "%s[%ld] instance does not exist", po->sym_->name, ix);
 		PyErr_SetString(PyExc_IndexError, e);
 		return NULL;
 	}
@@ -1800,7 +1826,7 @@ myPyMODINIT_FUNC nrnpy_hoc() {
 		goto fail;
 	}
 	// Setup bytesize in typestr
-	snprintf(array_interface_typestr+2,3,"%d",sizeof(double));
+	snprintf(array_interface_typestr+2,3,"%ld",sizeof(double));
 #if PY_MAJOR_VERSION >= 3
 	assert(PyDict_SetItemString(modules, "hoc", m) == 0);
 	Py_DECREF(m);
