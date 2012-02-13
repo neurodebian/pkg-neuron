@@ -7,7 +7,7 @@ udebver = $(shell echo $(debver) | cut -d '-' -f 1,1 )
 
 # To deduce upstream's own version
 urepo = ../nrn-hg
-urepover = $(shell cd $(urepo); { ./hg2nrnversion_h.sh; echo 'NRN_MAJOR_VERSION.NRN_MINOR_VERSION~hg-HG_DATE.dfsg'; } | cpp | sed -n -e '/~hg/s/["-]//gp')
+urepover = $(shell cd $(urepo); { ./hg2nrnversion_h.sh; echo 'NRN_MAJOR_VERSION.NRN_MINOR_VERSION+hg-HG_DATE.dfsg'; } | cpp | sed -n -e '/+hg/s/["-]//gp')
 
 CFLAGS = -Wall -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
