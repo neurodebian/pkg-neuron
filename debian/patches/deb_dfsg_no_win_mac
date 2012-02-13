@@ -1,6 +1,6 @@
 --- a/configure.in
 +++ b/configure.in
-@@ -506,12 +506,7 @@ AC_CONFIG_FILES([
+@@ -513,12 +513,7 @@ AC_CONFIG_FILES([
  	src/nrnjava/Makefile src/nrnjava/nrnccmb/Makefile
  	src/nrnjava/neuron/Makefile
  	src/nrnpython/Makefile src/ni_pci_6229/Makefile
