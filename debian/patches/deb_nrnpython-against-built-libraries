@@ -1,3 +1,9 @@
+From: Yaroslav Halchenko <debian@onerussian.com>
+Subject: look for "installed in a package" libraries while building nrnpython
+
+Origin: Debian
+Last-Update: 2012-10-15
+
 --- a/src/nrnpython/setup.py.in
 +++ b/src/nrnpython/setup.py.in
 @@ -59,7 +59,8 @@ include_dirs = [nrn_srcdir+'/src/oc', '.
