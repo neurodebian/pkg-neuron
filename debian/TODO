@@ -81,6 +81,8 @@ and "fixes?" like
 
 * Is any binary from interviews (e.g. idraw, idemo, iclass) necessary?
 
+* May be no public libneuron0 but neuron-core private library
+
 Upstream
 ========
 
